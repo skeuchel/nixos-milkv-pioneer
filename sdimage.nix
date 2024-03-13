@@ -74,7 +74,7 @@ in
       EOF
     '';
 
-    firmwarePartitionOffset = 2;
+    firmwarePartitionOffset = 0;
     firmwareSize = 64;
 
     populateRootCommands = ''
