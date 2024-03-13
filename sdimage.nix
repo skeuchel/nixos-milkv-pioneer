@@ -3,6 +3,8 @@
 let
   opensbi = pkgs.callPackage ./opensbi.nix { };
   zsbl = pkgs.callPackage ./zsbl.nix { };
+
+  # Download the vendor's Firmware Image Package
   fip = pkgs.fetchurl {
     url = "https://github.com/sophgo/bootloader-riscv/raw/64369b1ba8da02b2573e5c25639c35ba0b8f21a8/firmware/fip.bin";
     hash = "sha256-UjRNUNZm7w821CHYTy2qcUkWUa8EwOri4Gd8rbnPozI=";
@@ -47,14 +49,6 @@ in
     populateFirmwareCommands = ''
       mkdir -p firmware/riscv64
 
-      touch firmware/BOOT
-      cp ${fip} firmware/fip.bin
-      cp ${zsbl}/zsbl.bin firmware/
-      cp ${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin firmware/riscv64/
-      cp ${./firmware}/riscv64/initrd.img firmware/riscv64/
-      cp ${./firmware}/riscv64/mango-milkv-pioneer.dtb firmware/riscv64/
-      cp ${./firmware}/riscv64/riscv64_Image firmware/riscv64/
-
       cat >> firmware/riscv64/conf.ini <<EOF
         [sophgo-config]
 
@@ -72,11 +66,20 @@ in
 
         [eof]
       EOF
+
+      cp ${fip} firmware/fip.bin
+      cp ${zsbl}/zsbl.bin firmware/
+      cp ${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin firmware/riscv64/
+      cp ${./firmware}/riscv64/initrd.img firmware/riscv64/
+      cp ${./firmware}/riscv64/mango-milkv-pioneer.dtb firmware/riscv64/
+      cp ${./firmware}/riscv64/riscv64_Image firmware/riscv64/
+
+      touch firmware/BOOT
     '';
 
     firmwarePartitionName = "EFI";
     firmwarePartitionOffset = 1;
-    firmwareSize = 64;
+    firmwareSize = 256;
 
     populateRootCommands = ''
       mkdir -p ./files/boot
