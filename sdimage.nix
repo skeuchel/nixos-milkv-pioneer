@@ -74,7 +74,8 @@ in
       EOF
     '';
 
-    firmwarePartitionOffset = 0;
+    firmwarePartitionName = "EFI";
+    firmwarePartitionOffset = 1;
     firmwareSize = 64;
 
     populateRootCommands = ''
