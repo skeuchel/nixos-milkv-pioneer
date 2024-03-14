@@ -2,11 +2,11 @@
 set -xe
 
 echo create an image file...
-dd if=/dev/zero of=firmware.img bs=256MiB count=1
+dd if=/dev/zero of=firmware.img bs=64MiB count=1
 
 echo create partitions...
 parted firmware.img mktable msdos
-parted firmware.img mkpart p fat32 0% 100%
+parted firmware.img mkpart p fat32 2048s 100%
 loops=$(kpartx -av firmware.img | cut -d ' ' -f 3)
 fat32part=$(echo $loops | cut -d ' ' -f 1)
 mkfs.vfat /dev/mapper/$fat32part -n EFI
