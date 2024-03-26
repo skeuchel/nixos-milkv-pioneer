@@ -8,8 +8,8 @@ let
 
   # Download the vendor's Firmware Image Package
   fip = pkgs.fetchurl {
-    url = "https://github.com/sophgo/bootloader-riscv/raw/64369b1ba8da02b2573e5c25639c35ba0b8f21a8/firmware/fip.bin";
-    hash = "sha256-UjRNUNZm7w821CHYTy2qcUkWUa8EwOri4Gd8rbnPozI=";
+    url = "https://github.com/sophgo/bootloader-riscv/raw/3f750677e0249ff549ad3fe20bbc800998503539/firmware/fip.bin";
+    hash = "sha256-rav00Ok6+FU77lI0piQPHCaz7Tw1RSbyUal4PyeSccg=";
   };
   conf-ini = pkgs.writeText "conf.ini" ''
     [sophgo-config]
