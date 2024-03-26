@@ -25,6 +25,8 @@ buildLinux (args
     # https://github.com/sophgo/bootloader-riscv/issues/71
     #CMDLINE = freeform "console=ttyS0,115200";
     #CMDLINE_EXTEND = yes;
+    VIRTIO_MENU = yes;
+    VIRTIO_PCI = module;
 
     # There is an i2c mcu driver (drivers/soc/sophgo/umcu) which is always
     # compiled into the kernel. Hence some of the i2c support also needs to
