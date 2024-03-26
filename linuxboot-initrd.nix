@@ -37,8 +37,8 @@ buildGoModule rec {
 
   subPackages = [ "." ];
   postBuild = ''
-    mkdir -p firmware
-    cp -a ${linux-firmware-xz}/lib/firmware/{amdgpu,radeon} ./firmware/
+    mkdir -p firmware/radeon
+    cp -aL ${linux-firmware}/lib/firmware/radeon/tahiti*.bin ./firmware/radeon/
 
     GOROOT="$(go env GOROOT)" $GOPATH/bin/u-root \
       -build bb \

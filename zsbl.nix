@@ -27,6 +27,9 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
   ];
+  patches = [
+    ./zsbl-increase-timeout.patch
+  ];
 
   configurePhase = ''
     make sg2042_defconfig;

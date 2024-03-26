@@ -101,7 +101,7 @@ in
       cp ${zsbl}/zsbl.bin firmware/
       cp ${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin firmware/riscv64/
       cp ${initrd}/initrd.img firmware/riscv64/
-      cp ${dtbs}/dtbs/sophgo/mango-milkv-pioneer.dtb firmware/riscv64/
+      cp ${dtbs}/sophgo/mango-milkv-pioneer.dtb firmware/riscv64/
       cp ${kernel}/Image firmware/riscv64/riscv64_Image
 
       touch firmware/BOOT
