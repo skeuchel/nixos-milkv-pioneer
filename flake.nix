@@ -21,13 +21,15 @@
     rec {
       packages.default = packages.sd-image;
       packages.opensbi = pkgs.callPackage ./opensbi.nix { };
+      packages.linuxboot-kernel = pkgs.callPackage ./linuxboot-kernel.nix { };
+      packages.linuxboot-u-root = pkgs.callPackage ./linuxboot-u-root.nix { };
       packages.zsbl = pkgs.callPackage ./zsbl.nix { };
       packages.sd-image =
         (import "${nixpkgs}/nixos" {
           configuration = {
             imports = [
               "${nixos-hardware}/milkv/pioneer"
-              ./sdimage.nix
+              ./sd-image.nix
             ];
 
             nixpkgs.crossSystem = {

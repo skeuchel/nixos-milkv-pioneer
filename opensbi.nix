@@ -1,5 +1,6 @@
 { fetchFromGitHub
 , opensbi
+, ...
 }:
 
 opensbi.overrideAttrs (attrs: {
