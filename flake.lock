@@ -18,22 +18,6 @@
         "type": "github"
       }
     },
-    "nixos-hardware": {
-      "locked": {
-        "lastModified": 1710187446,
-        "narHash": "sha256-miQujwiW1VdZnfGIfjWWzDSUkZzxjQPnx6vsVMZ8+FM=",
-        "owner": "skeuchel",
-        "repo": "nixos-hardware",
-        "rev": "d8d21354bb1ff4bca7e5b5deecf3cf5a62e881e1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "skeuchel",
-        "ref": "milkv-pioneer",
-        "repo": "nixos-hardware",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1710360485,
@@ -53,7 +37,6 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs"
       }
     },

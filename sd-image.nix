@@ -40,11 +40,9 @@ in
       # Some modules are missing like virtio_pci
       availableKernelModules = lib.mkForce [
         "ahci"
-        "amdgpu"
         "mmc_block"
         "nvme"
         "r8169"
-        "radeon"
         "sd_mod"
         "sdhci_pci"
         "sdhci_sophgo"
@@ -61,12 +59,25 @@ in
         "xhci_pci"
       ];
     };
+    kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./linux.nix {
+      inherit (config.boot) kernelPatches;
+    });
+    kernelParams = [
+      "earlycon"
+      "console=ttyS0,115200"
+    ];
+
     loader = {
       grub.enable = lib.mkDefault false;
       generic-extlinux-compatible.enable = lib.mkDefault true;
     };
 
     supportedFilesystems = [ "ext4" "vfat" ];
+  };
+
+  hardware.deviceTree = {
+    enable = true;
+    name = "sophgo/mango-milkv-pioneer.dtb";
   };
 
   sdImage = {

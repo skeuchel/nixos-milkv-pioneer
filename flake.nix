@@ -1,13 +1,13 @@
 {
   inputs = {
-    nixos-hardware.url = "github:skeuchel/nixos-hardware/milkv-pioneer";
+    # nixos-hardware.url = "github:skeuchel/nixos-hardware/milkv-pioneer";
     nixpkgs.url = "github:nixos/nixpkgs/master";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
     { nixpkgs
-    , nixos-hardware
+    # , nixos-hardware
     , flake-utils
     , ...
     }:
@@ -28,7 +28,7 @@
         (import "${nixpkgs}/nixos" {
           configuration = {
             imports = [
-              "${nixos-hardware}/milkv/pioneer"
+              # "${nixos-hardware}/milkv/pioneer"
               ./sd-image.nix
             ];
 
