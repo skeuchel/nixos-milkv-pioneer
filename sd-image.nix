@@ -41,16 +41,24 @@ in
       availableKernelModules = lib.mkForce [
         "ahci"
         "amdgpu"
+        "mmc_block"
         "nvme"
+        "r8169"
         "radeon"
         "sd_mod"
+        "sdhci_pci"
         "sdhci_sophgo"
         "uas"
         "usb_storage"
+        "xhci_hcd"
         "xhci_pci"
       ];
       kernelModules = [
+        "mmc_block"
+        "sdhci_pci"
         "sdhci_sophgo"
+        "xhci_hcd"
+        "xhci_pci"
       ];
     };
     loader = {
