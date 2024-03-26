@@ -31,7 +31,7 @@ buildGoModule rec {
     cp -a ${linux-firmware-xz}/lib/firmware/amdgpu/polaris*.bin.xz ./firmware/amdgpu/
     cp -a ${linux-firmware-xz}/lib/firmware/radeon/*.bin.xz ./firmware/radeon/
 
-    GOOS=linux GOARD=riscv64 GOROOT="$(go env GOROOT)" $GOPATH/bin/u-root \
+    GOROOT="$(go env GOROOT)" $GOPATH/bin/u-root \
       -build bb \
       -uinitcmd=boot \
       -files ${pkgsStatic.busybox}/bin/busybox:bin/busybox \
