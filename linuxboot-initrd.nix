@@ -29,8 +29,8 @@ buildGoModule rec {
     (
       fetchpatch {
         url = "https://github.com/sophgo/bootloader-riscv/commit/322c3305763872a9b88a1c85d79bca63b8fbe7a6.patch";
-        hash = "sha256-m1h4PS/8JaF78wHndc9E9VNdMYCNPTQUNDHvmiE2Fyw=";
-        stripLen = 2;
+        hash = "sha256-l5r3DbcMqRYD5FhRBqtEIEscZAdDvjmQJE4BIAtWYWE=";
+        stripLen = 1;
       }
     )
   ];
