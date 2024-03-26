@@ -27,9 +27,8 @@ buildGoModule rec {
 
   subPackages = [ "." ];
   postBuild = ''
-    mkdir -p firmware/amdgpu firmware/radeon
-    cp -a ${linux-firmware-xz}/lib/firmware/amdgpu/polaris*.bin.xz ./firmware/amdgpu/
-    cp -a ${linux-firmware-xz}/lib/firmware/radeon/*.bin.xz ./firmware/radeon/
+    mkdir -p firmware
+    cp -a ${linux-firmware-xz}/lib/firmware/{amdgpu,radeon} ./firmware/
 
     GOROOT="$(go env GOROOT)" $GOPATH/bin/u-root \
       -build bb \
@@ -42,6 +41,7 @@ buildGoModule rec {
 
   installPhase = ''
     mkdir -p $out
+    cp -ra firmware $out/firmware
     cp initramfs.cpio $out/initrd.img
   '';
 }
