@@ -4,6 +4,7 @@ let
   opensbi = pkgs.callPackage ./opensbi.nix { };
   zsbl = pkgs.callPackage ./zsbl.nix { };
   kernel = pkgs.callPackage ./linuxboot-kernel.nix { };
+  dtbs = config.hardware.deviceTree.package;
   initrd = pkgs.callPackage ./linuxboot-initrd.nix { };
 
   # Download the vendor's Firmware Image Package
@@ -78,6 +79,10 @@ in
   hardware.deviceTree = {
     enable = true;
     name = "sophgo/mango-milkv-pioneer.dtb";
+    overlays = [{
+      name = "serial-output-patch";
+      dtsFile = ./serial-output-patch.dts;
+    }];
   };
 
   sdImage = {
@@ -93,7 +98,7 @@ in
       cp ${zsbl}/zsbl.bin firmware/
       cp ${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin firmware/riscv64/
       cp ${initrd}/initrd.img firmware/riscv64/
-      cp ${kernel}/dtbs/sophgo/mango-milkv-pioneer.dtb firmware/riscv64/
+      cp ${dtbs}/dtbs/sophgo/mango-milkv-pioneer.dtb firmware/riscv64/
       cp ${kernel}/Image firmware/riscv64/riscv64_Image
 
       touch firmware/BOOT

@@ -5,7 +5,7 @@
 , ...
 } @ args:
 let
-  modDirVersion = "6.8.0";
+  modDirVersion = "6.6.20";
 in
 buildLinux (args
   // {
@@ -13,10 +13,10 @@ buildLinux (args
   inherit kernelPatches modDirVersion;
 
   src = fetchFromGitHub {
-    owner = "milkv-community";
-    repo = "linux";
-    rev = "dfe9dcc4b86297e415d9ffd67fbf1194df9e1ff8";
-    hash = "sha256-zCrQwjFn09gyal511xLCxVP2+Uvlp1gsVta42PL8+zQ=";
+    owner = "sophgo";
+    repo = "linux-riscv";
+    rev = "caa949e3690fe8a4656313b2b56f52666fa880db";
+    hash = "sha256-qJpR3KMgvP4tfPfBfQ/MiEWg/uuuxHYuACK8taKKK3E=";
   };
 
   defconfig = "sophgo_mango_normal_defconfig";
