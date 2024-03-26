@@ -32,26 +32,28 @@ let
 in
 {
   imports = [
+    "${modulesPath}/profiles/all-hardware.nix"
     "${modulesPath}/profiles/base.nix"
+    "${modulesPath}/profiles/installation-device.nix"
     "${modulesPath}/installer/sd-card/sd-image.nix"
   ];
 
   boot = {
     initrd = {
       # Some modules are missing like virtio_pci
-      availableKernelModules = lib.mkForce [
-        "ahci"
-        "mmc_block"
-        "nvme"
-        "r8169"
-        "sd_mod"
-        "sdhci_pci"
-        "sdhci_sophgo"
-        "uas"
-        "usb_storage"
-        "xhci_hcd"
-        "xhci_pci"
-      ];
+      # availableKernelModules = [
+      #   "ahci"
+      #   "mmc_block"
+      #   "nvme"
+      #   "r8169"
+      #   "sd_mod"
+      #   "sdhci_pci"
+      #   "sdhci_sophgo"
+      #   "uas"
+      #   "usb_storage"
+      #   "xhci_hcd"
+      #   "xhci_pci"
+      # ];
       kernelModules = [
         "mmc_block"
         "sdhci_pci"
@@ -76,6 +78,7 @@ in
     supportedFilesystems = [ "ext4" "vfat" ];
   };
 
+  hardware.enableRedistributableFirmware = true;
   hardware.deviceTree = {
     enable = true;
     name = "sophgo/mango-milkv-pioneer.dtb";
