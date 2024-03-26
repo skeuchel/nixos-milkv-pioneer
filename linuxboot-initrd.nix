@@ -2,6 +2,7 @@
 , busybox
 , compressFirmwareXz
 , fetchFromGitHub
+, fetchpatch
 , linux-firmware
 , pkgsStatic
 , ...
@@ -24,6 +25,15 @@ buildGoModule rec {
     hash = "sha256-8zA3pHf45MdUcq/MA/mf0KCTxB1viHieU/oigYwIPgo=";
   };
   vendorHash = null;
+  patches = [
+    (
+      fetchpatch {
+        url = "https://github.com/sophgo/bootloader-riscv/commit/322c3305763872a9b88a1c85d79bca63b8fbe7a6.patch";
+        hash = "sha256-m1h4PS/8JaF78wHndc9E9VNdMYCNPTQUNDHvmiE2Fyw=";
+        stripLen = 2;
+      }
+    )
+  ];
 
   subPackages = [ "." ];
   postBuild = ''

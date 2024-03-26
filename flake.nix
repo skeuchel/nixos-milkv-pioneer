@@ -22,7 +22,7 @@
       packages.default = packages.sd-image;
       packages.opensbi = pkgs.callPackage ./opensbi.nix { };
       packages.linuxboot-kernel = pkgs.callPackage ./linuxboot-kernel.nix { };
-      packages.linuxboot-u-root = pkgs.callPackage ./linuxboot-u-root.nix { };
+      packages.linuxboot-initrd = pkgs.callPackage ./linuxboot-initrd.nix { };
       packages.zsbl = pkgs.callPackage ./zsbl.nix { };
       packages.sd-image =
         (import "${nixpkgs}/nixos" {

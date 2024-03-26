@@ -4,7 +4,7 @@ let
   opensbi = pkgs.callPackage ./opensbi.nix { };
   zsbl = pkgs.callPackage ./zsbl.nix { };
   kernel = pkgs.callPackage ./linuxboot-kernel.nix { };
-  u-root = pkgs.callPackage ./linuxboot-u-root.nix { };
+  initrd = pkgs.callPackage ./linuxboot-initrd.nix { };
 
   # Download the vendor's Firmware Image Package
   fip = pkgs.fetchurl {
@@ -73,16 +73,15 @@ in
       cp ${fip} firmware/fip.bin
       cp ${zsbl}/zsbl.bin firmware/
       cp ${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin firmware/riscv64/
-      cp ${u-root}/initrd.img firmware/riscv64/
+      cp ${initrd}/initrd.img firmware/riscv64/
       cp ${kernel}/dtbs/sophgo/mango-milkv-pioneer.dtb firmware/riscv64/
       cp ${kernel}/Image firmware/riscv64/riscv64_Image
 
       touch firmware/BOOT
     '';
 
-    firmwarePartitionName = "EFI";
     firmwarePartitionOffset = 1;
-    firmwareSize = 256;
+    firmwareSize = 128;
 
     populateRootCommands = ''
       mkdir -p ./files/boot
