@@ -24,6 +24,7 @@
       packages.linuxboot-kernel = pkgs.callPackage ./linuxboot-kernel.nix { };
       packages.linuxboot-initrd = pkgs.callPackage ./linuxboot-initrd.nix { };
       packages.zsbl = pkgs.callPackage ./zsbl.nix { };
+      packages.linux-firmware-xz = pkgs.compressFirmwareXz pkgs.linux-firmware;
       packages.sd-image =
         (import "${nixpkgs}/nixos" {
           configuration = {

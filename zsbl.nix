@@ -1,9 +1,10 @@
-{ stdenv
-, lib
-, fetchFromGitHub
+{ buildPackages
 , bison
+, fetchFromGitHub
 , flex
-, buildPackages
+, lib
+, stdenv
+
 , ...
 }:
 stdenv.mkDerivation rec {
@@ -16,31 +17,29 @@ stdenv.mkDerivation rec {
     hash = "sha256-zOlBM7mwz8FUM/BlzOxJmpI8LI/KcFOGXegvgiilbaM=";
   };
 
+  patches = [
+    # Reading larger initrds from sdcards can hit the timeout.
+    ./zsbl-increase-timeout.patch
+  ];
+
   nativeBuildInputs = [
     bison
     flex
   ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-
-  hardeningDisable = [ "fortify" "stackprotector" ];
+  depsBuildBuild = [
+    buildPackages.stdenv.cc
+  ];
+  hardeningDisable = [
+    "fortify"
+    "stackprotector"
+  ];
 
   makeFlags = [
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
   ];
-  patches = [
-    ./zsbl-increase-timeout.patch
-  ];
-
-  configurePhase = ''
-    make sg2042_defconfig;
-  '';
-
-  installPhase = ''
-    install -D zsbl.bin $out/zsbl.bin
-  '';
-
+  configurePhase = "make sg2042_defconfig";
+  installPhase = "install -D zsbl.bin $out";
   enableParallelBuilding = true;
-
   dontStrip = true;
 
   meta = {

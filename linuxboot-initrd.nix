@@ -3,6 +3,7 @@
 , compressFirmwareXz
 , fetchFromGitHub
 , fetchpatch
+, lib
 , linux-firmware
 , pkgsStatic
 , ...
@@ -37,21 +38,23 @@ buildGoModule rec {
 
   subPackages = [ "." ];
   postBuild = ''
-    mkdir -p firmware/radeon
-    cp -aL ${linux-firmware}/lib/firmware/radeon/tahiti*.bin ./firmware/radeon/
+    # Include firmware for AMD GPUs based on the vendor's list here:
+    # https://github.com/sophgo/bootloader-riscv/tree/47771f786e8239f681cc4fdadb7a9a2e22688f93/u-root/firmware
+    mkdir -p firmware/{amdgpu,radeon}
+    cp -aL ${linux-firmware-xz}/lib/firmware/amdgpu/polaris12*.bin.xz firmware/amdgpu/
+    cp -aL ${linux-firmware-xz}/lib/firmware/radeon/{BTC,CAICOS,SUMO}_*.bin.xz firmware/radeon/
+    cp -aL ${linux-firmware-xz}/lib/firmware/radeon/{TAHITI,tahiti}_*.bin.xz firmware/radeon/
 
     GOROOT="$(go env GOROOT)" $GOPATH/bin/u-root \
       -build bb \
       -uinitcmd=boot \
-      -files ${pkgsStatic.busybox}/bin/busybox:bin/busybox \
       -files ./firmware/:lib/firmware/ \
       -o initramfs.cpio \
       core boot
   '';
 
   installPhase = ''
-    mkdir -p $out
-    cp -ra firmware $out/firmware
-    cp initramfs.cpio $out/initrd.img
+    cp -a firmware $out/
+    install -D initramfs.cpio $out/initrd.img
   '';
 }

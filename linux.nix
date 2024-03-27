@@ -21,10 +21,8 @@ buildLinux (args
 
   defconfig = "sophgo_mango_normal_defconfig";
   structuredExtraConfig = with lib.kernel; {
-    # Force output on serial console
-    # https://github.com/sophgo/bootloader-riscv/issues/71
-    #CMDLINE = freeform "console=ttyS0,115200";
-    #CMDLINE_EXTEND = yes;
+    # Enable these explicitly because they are not enabled by the defconfig.
+    # These are assumed to be built by the all-hardware profile.
     VIRTIO_MENU = yes;
     VIRTIO_PCI = module;
 

@@ -3,6 +3,14 @@
 let
   opensbi = pkgs.callPackage ./opensbi.nix { };
   zsbl = pkgs.callPackage ./zsbl.nix { };
+  # deviceTreeOverlays = [{
+  #   name = "serial-output-patch";
+  #   filter = null;
+  #   dtboFile = pkgs.deviceTree.compileDTS {
+  #     name = "serial-output-patch";
+  #     dtsFile = ./serial-output-patch.dts;
+  #   };
+  # }];
   kernel = pkgs.callPackage ./linuxboot-kernel.nix { };
   dtbs = config.hardware.deviceTree.package;
   initrd = pkgs.callPackage ./linuxboot-initrd.nix { };
@@ -56,6 +64,7 @@ in
       # ];
       kernelModules = [
         "mmc_block"
+        "radeon"
         "sdhci_pci"
         "sdhci_sophgo"
         "xhci_hcd"
