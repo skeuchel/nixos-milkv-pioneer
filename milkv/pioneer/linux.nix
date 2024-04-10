@@ -1,16 +1,16 @@
 { buildLinux, fetchFromGitHub, kernelPatches, lib, ... } @ args:
 
 let
-  modDirVersion = "6.6.20";
+  modDirVersion = "6.8.0";
 in
 buildLinux (args // {
   inherit kernelPatches modDirVersion;
   version = "${modDirVersion}-milkv-pioneer";
   src = fetchFromGitHub {
-    owner = "sophgo";
-    repo = "linux-riscv";
-    rev = "caa949e3690fe8a4656313b2b56f52666fa880db";
-    hash = "sha256-qJpR3KMgvP4tfPfBfQ/MiEWg/uuuxHYuACK8taKKK3E=";
+    owner = "milkv-community";
+    repo = "linux";
+    rev = "2b5cf66a7b62dcbe442f6cc738aeb7402e71fd71";
+    hash = "sha256-IYxnyotoN6uKYjI0+ELbi/thSFitGsC/EyYbD3K7K/E=";
   };
 
   defconfig = "sophgo_mango_normal_defconfig";
@@ -40,5 +40,4 @@ buildLinux (args // {
     I2C_DESIGNWARE_PLATFORM = yes;
   };
 
-  extraMeta.branch = "sg2042-dev-6.6";
 } // (args.argsOverride or { }))
