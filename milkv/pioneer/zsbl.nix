@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    # Reading larger initrds from sdcards can hit the timeout.
+    # Depending on the sdcard, reading larger initrds (say >= 25MB)
+    # can hit the timeout.
     ./zsbl-increase-timeout.patch
   ];
 

@@ -1,16 +1,13 @@
-{ fetchFromGitHub
-, opensbi
-, ...
-}:
+{ fetchFromGitHub, opensbi, ... }:
 
 opensbi.overrideAttrs (attrs: {
-  version = "1.2-git-3745939";
-
+  # Based on the vendor's sg2042-master branch.
+  version = "1.4-git-a6e158f7";
   src = fetchFromGitHub {
     owner = "sophgo";
     repo = "opensbi";
-    rev = "3745939ceb8ba71f45c4cfad205912cedbc76bd9";
-    hash = "sha256-UXsAKXO0fBjHkkanZlB0led9CiVeqa01dTM4r7D9dzs=";
+    rev = "a6e158f71aab17155e2bf25a325ce4f0be51d9dd";
+    hash = "sha256-5ggrEx1e53pB2+m0TBjDzDJXf2wjsQ2edu01FqqGt/Y=";
   };
 
   makeFlags =
